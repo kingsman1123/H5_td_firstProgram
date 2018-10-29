@@ -1,6 +1,7 @@
 function LoginModal(){
 	this.creatDom();
 	this.addListener();
+	this.genCode();
 	
 }
 	LoginModal.ModalTemplate = `<div class="modal fade" id="loginModal" tabindex="-1">
@@ -33,7 +34,7 @@ function LoginModal(){
 	        <button type="button" class="btn btn-primary btn-login">登录</button>
 	      </div>
 	    </div>
-	  </div>
+	  </div> 
 	</div>`;
 	
 	$.extend(LoginModal.prototype,{
@@ -42,46 +43,45 @@ function LoginModal(){
 		},
 		addListener(){
 			$(".btn-login").on("click", this.loginHandler);
-		$(".code").on("click", this.genCode);
-		$(".input-code").on("blur", this.codeHandler);
-		},
+			$(".code").on("click", this.genCode);
+			$(".input-code").on("blur", this.codeHandler);
+			},
 		// 登录处理
-	loginHandler() {
-		// 登录的用户名与密码
-		const data = $(".form-login").serialize();
-		// 请求API接口，实现用户名与密码验证
-		const url = "http://rap2api.taobao.org/app/mock/86513/api/users/login";
-		$.post(url, data, (data)=>{
-			if (data.res_body.status === 1) { // 登录成功
-				// 保存登录成功的用户名
-				// $.cookie("username", data.res_body.data.username);
-				sessionStorage.username = data.res_body.data.username;
-				// 刷新页面
-				location.reload();
-			} else { // 登录失败
-				$(".login-error").removeClass("hidden");
-			}
-		}, "json")
-	},
-	// 生成验证码
-	genCode() {
-		$.getJSON("/api/captcha", (data) => {
-			$(".code").html(data.res_body.data);
-		})
-	},
-	// 校验验证码
-	codeHandler(event) {
-		// 输入的值
-		const code = $(event.target).val();
-		// ajax
-		$.getJSON("/api/captcha/verify", {code}, (data)=>{
-			if (data.res_body.valid) {
-				alert("正确");
-			} else {
-				alert("错误");
-			}
-		})
-	}
+		loginHandler() {
+			// 登录的用户名与密码
+			const data = $(".form-login").serialize();
+			// 请求API接口，实现用户名与密码验证
+			const url = "http://rap2api.taobao.org/app/mock/86513/api/users/login";
+			$.post(url, data, (data)=>{
+				if (data.res_body.status === 1) { // 登录成功
+					// 保存登录成功的用户名
+					// $.cookie("username", data.res_body.data.username);
+					sessionStorage.username=data.res_body.data.username;
+					// 刷新页面
+					location.reload();
+				} else { // 登录失败
+					$(".login-error").removeClass("hidden");
+				}
+			}, "json")
+		},
+		// 生成验证码
+		genCode() {
+			$.getJSON("/api/captcha", (data) => {
+				$(".code").html(data.res_body.data);
+			})
+		},
+		// 校验验证码
+		codeHandler(event) {
+			// 输入的值
+			const code = $(event.target).val();
+			// ajax
+			$.getJSON("/api/captcha/verify", {code}, (data)=>{
+				if (data.res_body.valid) {
+					alert("正确");
+				} else {
+					alert("错误");
+				}
+			})
+		}
 	});
 	
-	new LoginModal();

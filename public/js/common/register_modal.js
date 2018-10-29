@@ -64,4 +64,3 @@ $.extend(RegisterModal.prototype, {
 	}
 });
 
-	new RegisterModal();

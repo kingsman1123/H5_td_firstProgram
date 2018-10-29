@@ -1,5 +1,5 @@
 function Header(){
-	this.creatDom();
+	this.init();
 }
 	Header.NavTemplate = `<nav class="navbar navbar-inverse">
 	    <div class="navbar-header">
@@ -29,9 +29,40 @@ function Header(){
 	  </nav>`;
 
 	$.extend(Header.prototype,{
+		init(){
+			this.creatDom();
+			this.loadUser();
+			this.addListener();
+		},
 		creatDom(){
 			$("header").html(Header.NavTemplate);
+		},
+		//加载登录成功的用户信息
+		loadUser(){
+			const user = sessionStorage.username;
+			if(user){
+				$(".login-success").removeClass("hidden").prev("ul").remove();
+				$(".login-success a:first").html("欢迎："+user);
+			}else{
+				this.creatModal();
+			}
+		},
+		creatModal(){
+			new LoginModal();
+			new RegisterModal();
+		},
+		addListener(){
+			$(".link-logout").on("click",this.logoutHandler);
+		},
+		//注销处理
+		logoutHandler(){
+			sessionStorage.removeItem("username");//移除 
+			$.getJSON("http://rap2api.taobao.org/app/mock/86513/api/users/logout",(data)=>{
+				if(data.res_body.status === 1){
+					location.reload();
+				}
+			});
 		}
 	});
 	
-		new Header();
+new Header();
