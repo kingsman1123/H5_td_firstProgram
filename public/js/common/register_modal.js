@@ -50,7 +50,7 @@ $.extend(RegisterModal.prototype, {
 		// 获取注册表单中的数据
 		const data = $(".form-register").serialize();
 		// 请求API接口，实现用户注册
-		const url = "http://rap2api.taobao.org/app/mock/86513/api/users/register";
+		const url = "/api/users/register";
 		$.post(url, data, (data)=>{
 			if (data.res_body.status === 1) { // 注册成功 即 用户登录成功
 				// 保存登录成功的用户名

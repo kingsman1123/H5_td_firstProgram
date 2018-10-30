@@ -31,8 +31,8 @@ app.use(session({
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/', indexRouter); //访问"/"下面目录的资源
+app.use('/api/users', usersRouter);//访问 "/api/users"目录下的资源
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

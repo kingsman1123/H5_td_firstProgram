@@ -25,6 +25,7 @@ function LoginModal(){
 			  <div class="form-group">
 			    <label for="loginCode">验证码</label>
 			    <input type="text" class="form-control input-code" id="loginCode" placeholder="请输入验证码">
+			    <div class="alert alert-danger hidden code-error">验证码错误</div>
 			    <div class="code"></div>
 			  </div>
 			</form>
@@ -51,7 +52,7 @@ function LoginModal(){
 			// 登录的用户名与密码
 			const data = $(".form-login").serialize();
 			// 请求API接口，实现用户名与密码验证
-			const url = "http://rap2api.taobao.org/app/mock/86513/api/users/login";
+			const url = "/api/users/login";
 			$.post(url, data, (data)=>{
 				if (data.res_body.status === 1) { // 登录成功
 					// 保存登录成功的用户名
@@ -61,6 +62,7 @@ function LoginModal(){
 					location.reload();
 				} else { // 登录失败
 					$(".login-error").removeClass("hidden");
+					alert(data.res_body.message);
 				}
 			}, "json")
 		},
@@ -77,9 +79,9 @@ function LoginModal(){
 			// ajax
 			$.getJSON("/api/captcha/verify", {code}, (data)=>{
 				if (data.res_body.valid) {
-					alert("正确");
+					$(".code-error").addClass("hidden");
 				} else {
-					alert("错误");
+					$(".code-error").removeClass("hidden");
 				}
 			})
 		}
