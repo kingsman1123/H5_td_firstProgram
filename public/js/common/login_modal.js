@@ -62,7 +62,8 @@ function LoginModal(){
 					location.reload();
 				} else { // 登录失败
 					$(".login-error").removeClass("hidden");
-					alert(data.res_body.message);
+					$(".login-error").text(data.res_body.message);
+//					alert(data.res_body.message);
 				}
 			}, "json")
 		},

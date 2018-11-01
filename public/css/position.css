@@ -1,0 +1,18 @@
+h4{
+	float:left ;
+}
+
+.btn-add{
+	float: right;
+}
+
+	.nav-row{
+		margin-bottom:0;
+	}
+	
+	.fileForm{
+		vertical-align: middle;
+	}
+	.btnFile{
+		font-size: 12px;
+	}

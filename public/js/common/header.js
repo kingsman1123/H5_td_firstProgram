@@ -36,6 +36,12 @@ function Header(){
 		},
 		creatDom(){
 			$("header").html(Header.NavTemplate);
+			var path =location.pathname.slice(6,14),
+				position = position;
+			if(path === position){
+				$(".navbar-nav li:second").addClass("active").siblings().removeClass("active");
+			}
+			
 		},
 		//加载登录成功的用户信息
 		loadUser(){
@@ -52,12 +58,12 @@ function Header(){
 			new RegisterModal();
 		},
 		addListener(){
-			$(".link-logout").on("click",this.logoutHandler);
+			$(".link-logout").on("click",this.logoutHandler);		
 		},
 		//注销处理
 		logoutHandler(){
 			sessionStorage.removeItem("username");//移除 
-			$.getJSON("http://rap2api.taobao.org/app/mock/86513/api/users/logout",(data)=>{
+			$.getJSON("/api/users/logout",(data)=>{
 				if(data.res_body.status === 1){
 					location.reload();
 				}

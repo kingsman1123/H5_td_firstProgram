@@ -11,6 +11,7 @@ const UserService = {
 //					console.log(data);
 					if(data.length === 1){//存在对象
 						if(password === data[0].password) {
+
 							res.json({
 								res_code:1,
 								res_error:"",
@@ -76,7 +77,14 @@ const UserService = {
 	},
 	//
 	logout(req,res,next){
-		
+		username = null;
+		res.json({
+			res_code:1,
+			res_error:"",
+			res_body:{
+				status:1
+			}
+		});
 	}
 }
 

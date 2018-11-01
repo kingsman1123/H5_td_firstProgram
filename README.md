@@ -101,6 +101,30 @@
 				}
 			}
 
+	添加职位：
+		URL: "/api/positions/add"
+		Method: "POST"
+		Param:
+			company
+			logo
+			name
+			salary
+		Return
+			JSON {
+				res_code: 1,
+				res_error: "",
+				res_ body: {
+					status: 1,
+					data: {
+						_id,
+						company,
+						logo,
+						name,
+						salary
+					}
+				}
+			}
+
 ## 数据存储
 
 前端：
@@ -138,3 +162,9 @@
 [mongoose](https://mongoosejs.com/)
 
 处理 MongoDB 数据库访问
+
+## Multer 
+
+[Multer](https://www.npmjs.com/package/multer)
+
+上传文件

@@ -11,11 +11,12 @@ const userSchema = new mongoose.Schema({
 	regTime: Date
 });
 
-//Schema-数据结构
+// Schema-数据结构：职位
 const positionSchema = new mongoose.Schema({
 	name: String,
-	salary: Number
-	// .............
+	salary: Number,
+	company: String,
+	logo: String
 });
 
 // Model-集合：用户(添加到数据库中)
@@ -23,6 +24,7 @@ const User = mongoose.model('user', userSchema);// 对应 "users" 集合
 
 // Model-集合：职位
 const Position = mongoose.model('position', positionSchema);  // 对应 "positions" 集合
+
 
 //导出
 module.exports = {User, Position};
